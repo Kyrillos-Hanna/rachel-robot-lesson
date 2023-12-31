@@ -16,7 +16,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.revrobotics.CANSparkMax.IdleMode;
 import frc.robot.Constants.DrivebaseConstants;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.Constants.MotorIDConstants;
 import frc.robot.Constants.GearRatioConstants;
 
 public class Drivebase extends SubsystemBase {
@@ -24,10 +23,10 @@ public class Drivebase extends SubsystemBase {
  
   public static Drivebase m_instance = new Drivebase();
 
-  CANSparkMax m_leftSlave = new CANSparkMax(MotorIDConstants.kLeftSlave, MotorType.kBrushless);  //brushless > brush
-  CANSparkMax m_leftMaster = new CANSparkMax(MotorIDConstants.kLeftMaster, MotorType.kBrushless);
-  CANSparkMax m_rightSlave = new CANSparkMax(MotorIDConstants.kRightSlave, MotorType.kBrushless);
-  CANSparkMax m_rightMaster = new CANSparkMax(MotorIDConstants.kRightMaster, MotorType.kBrushless);
+  CANSparkMax m_leftSlave = new CANSparkMax(DrivebaseConstants.kLeftSlave, MotorType.kBrushless);  //brushless > brush
+  CANSparkMax m_leftMaster = new CANSparkMax(DrivebaseConstants.kLeftMaster, MotorType.kBrushless);
+  CANSparkMax m_rightSlave = new CANSparkMax(DrivebaseConstants.kRightSlave, MotorType.kBrushless);
+  CANSparkMax m_rightMaster = new CANSparkMax(DrivebaseConstants.kRightMaster, MotorType.kBrushless);
 
   RelativeEncoder m_leftEncoder  = m_leftMaster.getAlternateEncoder(DrivebaseConstants.kCountsPerRev);  //creates an encoder 
   RelativeEncoder m_rightEncoder = m_rightMaster.getAlternateEncoder(DrivebaseConstants.kCountsPerRev); 
@@ -39,7 +38,7 @@ public class Drivebase extends SubsystemBase {
   }
 
 
-  public void configMotors(){  
+  private void configMotors(){  
     m_leftSlave.follow(m_leftMaster); //slave motor 
     m_rightSlave.follow(m_rightMaster);
 

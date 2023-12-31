@@ -7,6 +7,9 @@ package frc.robot.commands;
 import frc.robot.subsystems.Drivebase;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+
+import com.revrobotics.SparkMaxPIDController;
+
 import edu.wpi.first.math.controller.PIDController;
 import frc.robot.Constants.PIDControllerConstants;
 
@@ -15,6 +18,7 @@ public class Straight extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   //PIDController m_PIDController = new PIDController(PIDControllerConstants.Kp,PIDControllerConstants.Ki,PIDControllerConstants.Kd);
   private Drivebase m_db;
+  private double m_distance;
   SparkMaxPIDController m_PIDController = new SparkMaxPIDController();
   
 

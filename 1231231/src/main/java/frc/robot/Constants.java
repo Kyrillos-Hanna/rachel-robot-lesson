@@ -22,24 +22,29 @@ public final class Constants {
     public static final int kStallLimit = 40;
     public static final int kFreeLimit = 40;
     public static final int kWheelDiameterInches = 6;
-  
-  }
-
-   public class MotorIDConstants {   
     public static final int kLeftSlave = 1;
     public static final int kLeftMaster = 2;
     public static final int kRightSlave = 3;
     public static final int kRightMaster = 4;
+    public static final double Kp = 0;
+    public static final double Ki = 0;
+    public static final double Kd = 0;
   }
 
   public class GearRatioConstants {
     public static final int kGearRatio = 4;
   }
 
-  public class PIDControllerConstants {
+  public class WristConstants {
+    public static final int kCountsPerRev = 8192;
+    public static final int kLeft = 1;
+    public static final int kRight = 2;
+    public static final int kStallLimit = 30;
+    public static final int kFreeLimit = 30;
     public static final double Kp = 0;
     public static final double Ki = 0;
     public static final double Kd = 0;
+    public static final int kChannel = 0;
   }
 }
  

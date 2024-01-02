@@ -10,6 +10,7 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxAbsoluteEncoder;
 import com.revrobotics.SparkMaxLimitSwitch;
 import com.revrobotics.SparkMaxPIDController;
+import com.revrobotics.CANSparkMax.ControlType;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -35,6 +36,8 @@ public class Wrist extends SubsystemBase {
   CANSparkMax m_rightMotor = new CANSparkMax(WristConstants.kRight, MotorType.kBrushless);
 
   public DigitalInput m_armLimitSwitch = new DigitalInput(WristConstants.kChannel);
+
+  SparkMaxPIDController m_PIDController = m_leftMotor.getPIDController();
 
   WristState state = WristState.OFF;
 
@@ -76,6 +79,21 @@ public class Wrist extends SubsystemBase {
     this.setpoint = setpoint;
   }
 
+  public void OFF() {
+    m_rightMotor.set(0);
+    m_leftMotor.set(0);
+  }
+
+  public void goToPosition() {
+    m_PIDController.setReference(setpoint.getRotations() * WristConstants.kGearRatio, ControlType.kSmartMotion);
+  }
+
+  public void set(double value) {
+    m_leftMotor.set(value);
+    
+  }
+  
+
   SparkMaxAbsoluteEncoder m_leftEncoder = m_leftMotor.getAbsoluteEncoder(Type.kDutyCycle);
 
   static Wrist m_instance = new Wrist();
@@ -98,8 +116,6 @@ public class Wrist extends SubsystemBase {
 
     m_rightMotor.setSmartCurrentLimit(WristConstants.kStallLimit,WristConstants.kFreeLimit);
     m_leftMotor.setSmartCurrentLimit(WristConstants.kStallLimit,WristConstants.kFreeLimit);
-
-    SparkMaxPIDController m_PIDController = m_leftMotor.getPIDController();
 
     m_PIDController.setP(WristConstants.Kp);
     m_PIDController.setP(WristConstants.Ki);
@@ -134,7 +150,18 @@ public class Wrist extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    switch(state) {
+      case OFF:
+        OFF();
+        break;
+      case JOG:
+        set(jogValue);
+        break;
+      case POSITION:
+        //idk rn
+      case ZERO:
+        ZER0();
+    }
   }
 
   @Override

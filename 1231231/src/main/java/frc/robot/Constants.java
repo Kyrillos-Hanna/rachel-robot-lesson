@@ -45,6 +45,7 @@ public final class Constants {
     public static final double Ki = 0;
     public static final double Kd = 0;
     public static final int kChannel = 0;
+    public static final int kGearRatio = 4;
   }
 }
  
